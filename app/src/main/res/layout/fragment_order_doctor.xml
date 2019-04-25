@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/base_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_60sdp"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_40sdp">
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="6dp"
+                            app:cardCornerRadius="@dimen/_2sdp"
+                            app:cardElevation="@dimen/_4sdp">
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="@dimen/_35sdp"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="@dimen/_4sdp">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:id="@+id/doctor_type_TV"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:paddingEnd="@dimen/_6sdp"
+                                            android:paddingBottom="10dp"
+                                            android:text="@string/doctor"
+                                            android:textColor="@color/colorPrimaryDark"
+                                            android:textSize="16sp" />
+
+                                        <TextView
+                                            android:id="@+id/doctor_name_TV"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:paddingBottom="10dp"
+                                            android:textColor="@color/colorPrimaryDark"
+                                            android:textSize="18sp"
+                                            android:textStyle="bold" />
+                                    </LinearLayout>
+
+
+                                    <TextView
+                                        android:id="@+id/doctor_specialty_TV"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/dark_gray"
+                                        android:textSize="13sp" />
+                                </LinearLayout>
+                            </FrameLayout>
+                        </android.support.v7.widget.CardView>
+
+                    </FrameLayout>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/docotr_profile_img"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:src="@drawable/doctor"
+                        app:civ_border_color="@color/colorPrimaryDark"
+                        app:civ_border_width="@dimen/_1sdp"
+                        app:civ_circle_background_color="@color/cardview_light_background" />
+
+                </FrameLayout>
+
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    app:cardCornerRadius="@dimen/_2sdp"
+                    app:cardElevation="@dimen/_4sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_4sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_35sdp"
+                            android:layout_height="@dimen/_44sdp"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@drawable/ic_person_black_24dp"
+                            android:tint="@color/colorPrimaryDark" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:layout_marginBottom="@dimen/_8sdp"
+                            android:background="@color/dark_gray" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="@dimen/_4sdp">
+
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/username_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@drawable/ic_person_black_24dp"
+                                android:drawablePadding="4dp"
+                                android:drawableTint="@color/colorPrimaryDark"
+                                android:editable="false"
+                                android:hint="@string/name"
+                                android:inputType="text"
+                                android:textSize="@dimen/_13sdp"
+                                app:met_baseColor="@color/colorAccent"
+                                app:met_bottomTextSize="0dp"
+                                app:met_floatingLabel="none"
+                                app:met_primaryColor="@color/colorPrimary"
+                                app:met_singleLineEllipsis="true"
+                                app:met_textColorHint="@color/colorPrimary"
+                                app:met_underlineColor="@color/colorAccent" />
+
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/phone_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@drawable/ic_local_phone_black_24dp"
+                                android:drawablePadding="4dp"
+                                android:drawableTint="@color/colorPrimaryDark"
+                                android:hint="@string/phone"
+                                android:inputType="phone"
+                                android:textAlignment="viewStart"
+                                android:textSize="@dimen/_13sdp"
+                                app:met_baseColor="@color/colorAccent"
+                                app:met_bottomTextSize="0dp"
+                                app:met_floatingLabel="none"
+                                app:met_primaryColor="@color/colorPrimary"
+                                app:met_singleLineEllipsis="true"
+                                app:met_textColorHint="@color/colorPrimary"
+                                app:met_underlineColor="@color/colorAccent" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    app:cardCornerRadius="@dimen/_2sdp"
+                    app:cardElevation="@dimen/_4sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_4sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_4sdp">
+
+                            <ImageView
+                                android:layout_width="@dimen/_35sdp"
+                                android:layout_height="@dimen/_44sdp"
+                                android:padding="@dimen/_4sdp"
+                                android:src="@drawable/icon_calendar"
+                                android:tint="@color/colorPrimaryDark" />
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_marginBottom="@dimen/_8sdp"
+                                android:background="@color/dark_gray" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/clinic_time_TV"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingStart="@dimen/_6sdp"
+                                    android:text="23:00 PM : 6:00 PM"
+                                    android:textColor="@color/dark_gray"
+                                    android:textSize="@dimen/_14sdp" />
+
+                                <TextView
+                                    android:id="@+id/reserve_date_TV"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingStart="@dimen/_6sdp"
+                                    android:text="23:00 PM : 6:00 PM"
+                                    android:textColor="@color/dark_gray"
+                                    android:textSize="@dimen/_12sdp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_margin="@dimen/_6sdp"
+                            android:background="@color/dark_gray"
+                            android:padding="@dimen/_4sdp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_4sdp">
+
+                            <ImageView
+                                android:layout_width="@dimen/_35sdp"
+                                android:layout_height="@dimen/_44sdp"
+                                android:padding="@dimen/_4sdp"
+                                android:src="@drawable/icon_marker"
+                                android:tint="@color/colorPrimaryDark" />
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_marginBottom="@dimen/_8sdp"
+                                android:background="@color/dark_gray" />
+
+
+                            <TextView
+                                android:id="@+id/doctor_location_TV"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingBottom="10dp"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="@dimen/_12sdp" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    app:cardCornerRadius="@dimen/_2sdp"
+                    app:cardElevation="@dimen/_4sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_4sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_35sdp"
+                            android:layout_height="@dimen/_44sdp"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@drawable/icon_cash"
+                            android:tint="@color/colorPrimaryDark" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:layout_marginBottom="@dimen/_8sdp"
+                            android:background="@color/dark_gray" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_4sdp"
+                            android:paddingBottom="10dp"
+                            android:text="@string/fees"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/doctor_fees_TV"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="@dimen/_4sdp"
+                            android:paddingBottom="10dp"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+
+        </ScrollView>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/order_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center|bottom"
+        android:background="@drawable/bottun_bac"
+        android:text="@string/confirm"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/_14sdp" />
+</FrameLayout>

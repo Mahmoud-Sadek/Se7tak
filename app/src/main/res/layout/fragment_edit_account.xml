@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+        <include
+            layout="@layout/base_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_40sdp"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="@dimen/_140sdp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/bottun_bac"
+            android:layout_marginBottom="@dimen/_24sdp"/>
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/username_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_person_black_24dp"
+            android:drawableTint="@color/colorPrimaryDark"
+            android:hint="@string/name"
+            android:drawablePadding="4dp"
+            android:inputType="text"
+            android:textSize="@dimen/_13sdp"
+            app:met_baseColor="@color/colorAccent"
+            app:met_floatingLabel="none"
+            app:met_bottomTextSize="0dp"
+            app:met_primaryColor="@color/colorPrimary"
+            app:met_singleLineEllipsis="true"
+            app:met_textColorHint="@color/colorPrimary"
+            app:met_underlineColor="@color/colorAccent" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/phone_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_local_phone_black_24dp"
+            android:drawableTint="@color/colorPrimaryDark"
+            android:hint="@string/phone"
+            android:drawablePadding="4dp"
+            android:inputType="phone"
+            app:met_bottomTextSize="0dp"
+            android:textAlignment="viewStart"
+            android:textSize="@dimen/_13sdp"
+            app:met_baseColor="@color/colorAccent"
+            app:met_floatingLabel="none"
+            app:met_primaryColor="@color/colorPrimary"
+            app:met_singleLineEllipsis="true"
+            app:met_textColorHint="@color/colorPrimary"
+            app:met_underlineColor="@color/colorAccent"  />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/email_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_mail_black_24dp"
+            android:drawableTint="@color/colorPrimaryDark"
+            android:hint="@string/email_address"
+            android:drawablePadding="4dp"
+            android:inputType="textEmailAddress"
+            android:textSize="@dimen/_13sdp"
+            app:met_bottomTextSize="0dp"
+            app:met_baseColor="@color/colorAccent"
+            app:met_floatingLabel="none"
+            app:met_primaryColor="@color/colorPrimary"
+            app:met_singleLineEllipsis="true"
+            app:met_textColorHint="@color/colorPrimary"
+            app:met_underlineColor="@color/colorAccent"  />
+
+
+        <RadioGroup
+            android:id="@+id/gender_RB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/maleRB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/male"
+                android:textColor="@color/colorPrimary" />
+
+            <RadioButton
+                android:id="@+id/femaleRB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/female"
+                android:textColor="@color/colorPrimary" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btnConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_38sdp"
+            android:background="@drawable/bottun_bac"
+            android:text="@string/confirm"
+            android:layout_marginTop="@dimen/_27sdp"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_15sdp"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

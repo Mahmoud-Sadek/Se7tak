@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_8sdp"
+    android:background="@drawable/coupon_dialog_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_2sdp"
+        android:padding="@dimen/_10sdp"
+        android:gravity="center"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/complete_your_information"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_gravity="center"/>
+
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/phone_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_local_phone_black_24dp"
+            android:drawableTint="@color/colorPrimaryDark"
+            android:hint="@string/phone"
+            android:drawablePadding="4dp"
+            android:inputType="phone"
+            app:met_bottomTextSize="0dp"
+            android:textAlignment="viewStart"
+            android:textSize="@dimen/_13sdp"
+            app:met_baseColor="@color/colorAccent"
+            app:met_floatingLabel="none"
+            app:met_primaryColor="@color/colorPrimary"
+            app:met_singleLineEllipsis="true"
+            app:met_textColorHint="@color/colorPrimary"
+            app:met_underlineColor="@color/colorAccent"  />
+
+        <RadioGroup
+            android:id="@+id/gender_RB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/maleRB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/male"
+                android:textColor="@color/colorPrimary" />
+
+            <RadioButton
+                android:id="@+id/femaleRB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/female"
+                android:textColor="@color/colorPrimary" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btnSignup"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_38sdp"
+            android:background="@drawable/bottun_bac"
+            android:text="@string/sign_up"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_15sdp"/>
+    </LinearLayout>
+
+</RelativeLayout>
