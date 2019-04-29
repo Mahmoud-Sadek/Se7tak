@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,22 +15,39 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
 import com.sadek.se7tak.R;
 import com.sadek.se7tak.dialogs.OrderConfirmedDialog;
 import com.sadek.se7tak.firebase.FireDatabase;
+import com.sadek.se7tak.model.DataMessage;
 import com.sadek.se7tak.model.Doctor;
+import com.sadek.se7tak.model.MyResponse;
 import com.sadek.se7tak.model.Order;
 import com.sadek.se7tak.model.PatientUser;
+import com.sadek.se7tak.model.Token;
+import com.sadek.se7tak.utils.APIService;
 import com.sadek.se7tak.utils.Common;
 import com.sadek.se7tak.utils.LocaleUtils;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import dmax.dialog.SpotsDialog;
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class OrderDoctorFragment extends Fragment {
@@ -63,6 +81,8 @@ public class OrderDoctorFragment extends Fragment {
     Doctor model;
     String selectedDate, selectedTime, phoneNumber, userName;
     FireDatabase fireDatabase;
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,6 +118,8 @@ public class OrderDoctorFragment extends Fragment {
             }
         });
 
+        // init service
+
 
         fireDatabase = new FireDatabase(getContext());
         try {
@@ -108,15 +130,15 @@ public class OrderDoctorFragment extends Fragment {
             Picasso.with(getContext()).load(model.getProfileImage()).into(docotr_profile_img);
 
 
-            doctor_fees_TV.setText(model.getClinicDoctor().getExaminationFees()+getString(R.string.egp) + "");
+            doctor_fees_TV.setText(model.getClinicDoctor().getExaminationFees() + getString(R.string.egp) + "");
             clinic_time_TV.setText(selectedTime);
             reserve_date_TV.setText(selectedDate);
 
-            if(Paper.book().read(Common.language).equals(LocaleUtils.ARABIC)){
+            if (Paper.book().read(Common.language).equals(LocaleUtils.ARABIC)) {
                 doctor_name_TV.setText(model.getLastName());
                 doctor_location_TV.setText(model.getClinicDoctor().getLocationAR().trim() + "");
-            }else {
-                doctor_name_TV.setText(model.getFirstName() );
+            } else {
+                doctor_name_TV.setText(model.getFirstName());
                 doctor_location_TV.setText(model.getClinicDoctor().getLocationEN().trim() + "");
             }
             fireDatabase.getUser(new FireDatabase.UserCallback() {
@@ -164,9 +186,12 @@ public class OrderDoctorFragment extends Fragment {
             }
         });
 
-
+        Common.sendNotificationOrder(model.getId(), "يوجد طلب جديد", getActivity());
 
     }
+
+
+
 
     @Override
     public void onResume() {

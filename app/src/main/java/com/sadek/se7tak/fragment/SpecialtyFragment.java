@@ -92,6 +92,7 @@ public class SpecialtyFragment extends Fragment {
         database.getSpecialty(new FireDatabase.SpecialtyCallback() {
             @Override
             public void onCallback(ArrayList<SpecialtyModel> model) {
+                try{
                 list = model;
                 if (list.size() == 0) {
                     loading.setVisibility(View.GONE);
@@ -102,6 +103,9 @@ public class SpecialtyFragment extends Fragment {
                     Collections.reverse(list);
                     adatpter = new SpecialtyAdatpter(getContext(), list);
                     recycler.setAdapter(adatpter);
+                }
+                }catch (Exception e){
+
                 }
             }
         });

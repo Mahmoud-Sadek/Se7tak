@@ -23,7 +23,7 @@ public class MainActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         switchToPage(1, bundle, R.string.app_name);
 
-
+        Common.newToken(MainActivity.this);
     }
 
     public void switchToPage(int page, Bundle bundle, int nameId) {

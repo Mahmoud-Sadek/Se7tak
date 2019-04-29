@@ -131,6 +131,32 @@
 
 
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/order_note_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:orientation="horizontal"
+            android:padding="@dimen/_4sdp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/icon_about"
+                android:tint="@color/colorPrimaryDark" />
+
+            <TextView
+                android:id="@+id/order_note_TV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="10dp"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/_12sdp" />
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

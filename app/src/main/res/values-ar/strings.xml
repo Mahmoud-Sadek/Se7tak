@@ -78,10 +78,11 @@
     <string name="new_password">كلمة المرور الجديده</string>
     <string name="forget_password_">نسيت كلمة المرور</string>
     <string name="copy_right">تم التصميم بواسطة </string>
-    <string name="not_valid_user">Not Valid User</string>
+    <string name="not_valid_user">مستخدم غير صالح للدخول</string>
     <string name="no_data_added_yet">لايوجد</string>
     <string name="specialty_not_found">لايوجد تخصص</string>
     <string name="over_rate">التقييم العام من </string>
     <string name="vistors"> زائر</string>
-    <string name="comments_rates"><![CDATA[Comments & Rates]]></string>
+    <string name="comments_rates">التعليقات والتقييمات</string>
+    <string name="holiday">اجازة</string>
 </resources>

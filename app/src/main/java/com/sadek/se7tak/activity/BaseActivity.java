@@ -43,7 +43,10 @@ public class BaseActivity extends AppCompatActivity {
         String lang = Paper.book().read(Common.language);
         if (lang != null)
             LocaleUtils.initialize(getBaseContext(), lang);
-        else LocaleUtils.initialize(getBaseContext(), LocaleUtils.ENGLISH);
+        else {
+            LocaleUtils.initialize(getBaseContext(), LocaleUtils.ENGLISH);
+            Paper.book().write(Common.language, LocaleUtils.ENGLISH);
+        }
 
         //Check Os Ver For Set Status Bar
         Window window = this.getWindow();

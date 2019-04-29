@@ -9,6 +9,10 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +26,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.sadek.se7tak.R;
 import com.sadek.se7tak.activity.MainActivity;
+import com.sadek.se7tak.adapter.PhotosAdapter;
 import com.sadek.se7tak.firebase.FireDatabase;
 import com.sadek.se7tak.model.Doctor;
 import com.sadek.se7tak.model.Favorite;
@@ -32,7 +37,9 @@ import com.skyhope.weekday.callback.WeekItemClickListener;
 import com.skyhope.weekday.model.WeekModel;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import butterknife.BindView;
@@ -75,6 +82,8 @@ public class DoctorDetailsFragment extends Fragment implements WeekItemClickList
     TextView assistant_name_TV;
     @BindView(R.id.doctor_likes_TV)
     TextView doctor_likes_TV;
+    @BindView(R.id.clinic_photos_recycler)
+    RecyclerView clinic_photos_recycler;
 
 
     @BindView(R.id.call_clinic_img)
@@ -100,6 +109,10 @@ public class DoctorDetailsFragment extends Fragment implements WeekItemClickList
     @BindView(R.id.bottom_sheet)
     View bottomSheet;
 
+
+
+    PhotosAdapter photosAdaptet;
+    List<String> photosList;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -197,6 +210,14 @@ public class DoctorDetailsFragment extends Fragment implements WeekItemClickList
             doctorAddedFavorite();
             doctor_rating_bar.setRating(Float.parseFloat(Double.parseDouble(model.getRateTotal()) / Double.parseDouble(model.getRateCount()) + ""));
 
+
+            //home_new_offers_recycler
+            final RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+            clinic_photos_recycler.setLayoutManager(mLayoutManager);
+            photosList = new ArrayList<>();
+            photosList = model.getClinicDoctor().getImges();
+            photosAdaptet = new PhotosAdapter(photosList, getContext());
+            clinic_photos_recycler.setAdapter(photosAdaptet);
         } catch (Exception e) {
 
         }
@@ -241,10 +262,14 @@ public class DoctorDetailsFragment extends Fragment implements WeekItemClickList
     boolean fav;
 
     private boolean doctorAddedFavorite() {
-  fireDatabase.getFavorites(model.getId(), new FireDatabase.ResultStringCallback() {
+        fireDatabase.getFavorites(model.getId(), new FireDatabase.ResultStringCallback() {
             @Override
             public void onCallback(String success) {
-                doctor_likes_TV.setText(success);
+                try {
+                    doctor_likes_TV.setText(success);
+                } catch (Exception e) {
+
+                }
             }
         });
         fireDatabase.isFavorite(model.getId(), new FireDatabase.ResultCallback() {
@@ -273,9 +298,13 @@ public class DoctorDetailsFragment extends Fragment implements WeekItemClickList
         fireDatabase.addLike(favorite, fav, new FireDatabase.ResultCallback() {
             @Override
             public void onCallback(boolean success) {
-                if (success)
-                    doctor_likes_img.setImageResource(R.drawable.icon_favourite_filled);
-                else doctor_likes_img.setImageResource(R.drawable.icon_favourite);
+                try {
+                    if (success)
+                        doctor_likes_img.setImageResource(R.drawable.icon_favourite_filled);
+                    else doctor_likes_img.setImageResource(R.drawable.icon_favourite);
+                } catch (Exception e) {
+
+                }
             }
         });
     }
@@ -299,6 +328,7 @@ public class DoctorDetailsFragment extends Fragment implements WeekItemClickList
         bundle.putString(Common.ORDER_TIME, selectedTime);
         ((MainActivity) getContext()).switchToPage(4, bundle, R.string.book);
     }
+
     @OnClick(R.id.doctor_rates)
     void doctor_rates(View view) {
         BottomSheetDialogFragment bottomSheetDialogFragment = new RateFragment();
@@ -308,6 +338,7 @@ public class DoctorDetailsFragment extends Fragment implements WeekItemClickList
         bottomSheetDialogFragment.show(getChildFragmentManager(), bottomSheetDialogFragment.getTag());
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -333,10 +364,12 @@ public class DoctorDetailsFragment extends Fragment implements WeekItemClickList
             clinic_time_TV.setVisibility(View.VISIBLE);
             if (weekModel.isHoliday()) {
                 btnReserveDoctor.setVisibility(View.GONE);
-                clinic_time_TV.setVisibility(View.GONE);
+                clinic_time_TV.setVisibility(View.VISIBLE);
+                clinic_time_TV.setText(getString(R.string.holiday));
+
             }
 
-        }catch (Exception e) {
+        } catch (Exception e) {
 
         }
     }

@@ -1,6 +1,7 @@
 package com.sadek.se7tak.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -68,6 +69,13 @@ public class AppointmentsAdatpter extends RecyclerView.Adapter<AppointmentsAdatp
             }
         });
 
+        if (data.get(position).getNotes()==null)
+            holder.order_note_layout.setVisibility(View.GONE);
+        else {
+            holder.order_note_layout.setVisibility(View.VISIBLE);
+            holder.order_note_TV.setText(data.get(position).getNotes());
+        }
+
         if (!data.get(position).getStuatus().equals(Common.ORDER_STATUS_COMPLETED))
             holder.rate_img.setVisibility(View.GONE);
         else
@@ -105,6 +113,7 @@ public class AppointmentsAdatpter extends RecyclerView.Adapter<AppointmentsAdatp
                     @Override
                     public void onCallback(boolean success) {
                         if (success) {
+                            Common.sendNotificationOrder(data.get(position).getDoctorId(), "تم إلغاء طلب", (Activity)context);
                             fireDatabase.deleteAppointment(data.get(position), new FireDatabase.ResultCallback() {
                                 @Override
                                 public void onCallback(boolean success) {
@@ -189,6 +198,10 @@ public class AppointmentsAdatpter extends RecyclerView.Adapter<AppointmentsAdatp
         TextView order_time_TV;
         @BindView(R.id.docotr_examinations_TV)
         TextView docotr_examinations_TV;
+        @BindView(R.id.order_note_TV)
+        TextView order_note_TV;
+        @BindView(R.id.order_note_layout)
+        View order_note_layout;
 
 
         private ViewHolder(View itemView) {

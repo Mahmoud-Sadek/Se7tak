@@ -564,7 +564,8 @@ public class FireDatabase {
                         if (snapshot.exists()) {
                             Doctor model = snapshot.getValue(Doctor.class);
                             if (model.getSpecialty().getId().equals(specialtyModel.getId()))
-                                list.add(model);
+                                if (model.isPublished())
+                                    list.add(model);
                         }
                     }
                     callback.onCallback(list);

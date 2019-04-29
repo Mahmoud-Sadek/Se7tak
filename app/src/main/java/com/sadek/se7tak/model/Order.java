@@ -3,7 +3,7 @@ package com.sadek.se7tak.model;
 import java.io.Serializable;
 
 public class Order implements Serializable {
-    String id,  userId, DoctorId, phoneNumber, userName, orderTime, orderDate, examination, stuatus ;
+    String id,  userId, DoctorId, phoneNumber, userName, orderTime, orderDate, examination, stuatus , notes;
     Object orderTimestamp;
     public Order() {
     }
@@ -87,6 +87,14 @@ public class Order implements Serializable {
 
     public void setStuatus(String stuatus) {
         this.stuatus = stuatus;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }
 
