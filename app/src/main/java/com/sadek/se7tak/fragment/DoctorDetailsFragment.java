@@ -9,10 +9,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
-
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -86,6 +85,9 @@ public class DoctorDetailsFragment extends Fragment implements WeekItemClickList
     RecyclerView clinic_photos_recycler;
 
 
+    @BindView(R.id.doctor_certificate)
+    ImageView doctor_certificate;
+
     @BindView(R.id.call_clinic_img)
     ImageView call_clinic_img;
     @BindView(R.id.call_assistant_img)
@@ -110,9 +112,9 @@ public class DoctorDetailsFragment extends Fragment implements WeekItemClickList
     View bottomSheet;
 
 
-
     PhotosAdapter photosAdaptet;
     List<String> photosList;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -198,6 +200,8 @@ public class DoctorDetailsFragment extends Fragment implements WeekItemClickList
             btnReserveDoctor.setVisibility(View.GONE);
             clinic_time_TV.setVisibility(View.GONE);
             Picasso.with(getContext()).load(model.getProfileImage()).into(docotr_profile_img);
+            Picasso.with(getContext()).load(model.getCertificateImage()).into(doctor_certificate);
+
 
             doctor_rating_TV.setText(getString(R.string.over_rate) + " " +
                     (model.getRateCount() == null ? "0" : model.getRateCount()) +
@@ -208,6 +212,12 @@ public class DoctorDetailsFragment extends Fragment implements WeekItemClickList
 
 
             doctorAddedFavorite();
+            if (model.getRateCount() == null) {
+                model.setRateCount("0");
+            }
+            if (model.getRateTotal() == null) {
+                model.setRateTotal("0");
+            }
             doctor_rating_bar.setRating(Float.parseFloat(Double.parseDouble(model.getRateTotal()) / Double.parseDouble(model.getRateCount()) + ""));
 
 
@@ -309,6 +319,30 @@ public class DoctorDetailsFragment extends Fragment implements WeekItemClickList
         });
     }
 
+    @OnClick(R.id.docotr_profile_img)
+    void docotr_profile_img(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getLayoutInflater();
+        View viewImg = inflater.inflate(R.layout.image_dilog, null);
+        builder.setView(viewImg);
+        ImageView imgView = (ImageView) viewImg.findViewById(R.id.imageView);
+        Picasso.with(getContext()).load(model.getProfileImage()).into(imgView);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    @OnClick(R.id.doctor_certificate)
+    void doctor_certificate(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getLayoutInflater();
+        View viewImg = inflater.inflate(R.layout.image_dilog, null);
+        builder.setView(viewImg);
+        ImageView imgView = (ImageView) viewImg.findViewById(R.id.imageView);
+        Picasso.with(getContext()).load(model.getCertificateImage()).into(imgView);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     @OnClick(R.id.call_clinic_img)
     void call_clinic_img(View view) {
         dialContactPhone(model.getClinicDoctor().getPhone());
@@ -317,6 +351,7 @@ public class DoctorDetailsFragment extends Fragment implements WeekItemClickList
     @OnClick(R.id.call_assistant_img)
     void call_assistant_img(View view) {
         dialContactPhone(model.getClinicDoctor().getClinicAssistantDoctor().getPhone());
+
     }
 
     @OnClick(R.id.btnReserveDoctor)

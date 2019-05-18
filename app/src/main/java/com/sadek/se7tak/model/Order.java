@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Order implements Serializable {
     String id,  userId, DoctorId, phoneNumber, userName, orderTime, orderDate, examination, stuatus , notes;
     Object orderTimestamp;
+    boolean seen;
     public Order() {
     }
 
@@ -95,6 +96,14 @@ public class Order implements Serializable {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public boolean isSeen() {
+        return seen;
+    }
+
+    public void setSeen(boolean seen) {
+        this.seen = seen;
     }
 }
 

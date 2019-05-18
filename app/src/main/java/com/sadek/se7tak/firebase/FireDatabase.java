@@ -512,6 +512,63 @@ public class FireDatabase {
     }
 
     // this method for get all drivers from database
+    public void getNotificationNumber(final ResultStringCallback callback) {
+        final ArrayList<Order> list = new ArrayList<>();
+        reference.child(Common.FIREBASE_DOCTOR_ORDER).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list.clear();
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if (snapshot.exists()) {
+                            Order model = snapshot.getValue(Order.class);
+                            if (model.getUserId().equals(fireAuth.mAuth.getUid()))
+                                if (model.getStuatus().equals(Common.ORDER_STATUS_ACCEPTED) || model.getStuatus().equals(Common.ORDER_STATUS_REJECTED))
+                                    if (!model.isSeen())
+                                        list.add(model);
+                        }
+                    }
+                    callback.onCallback(list.size() + "");
+                } else
+                    callback.onCallback("0");
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("error", databaseError.getMessage());
+            }
+        });
+    }
+    public void seenOrder(final Order model, ResultCallback callback) {
+        progressDialog.show();
+        String id = model.getId();
+        reference.child(Common.FIREBASE_DOCTOR_ORDER).child(id).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "createUserWithEmail:success");
+                    progressDialog.dismiss();
+                    Toast.makeText(context, "success",
+                            Toast.LENGTH_SHORT).show();
+                    callback.onCallback(true);
+
+                } else {
+                    // If sign in fails, display a message to the user.
+                    progressDialog.dismiss();
+                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                    Toast.makeText(context, task.getException().getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                    callback.onCallback(false);
+
+                }
+
+            }
+        });
+    }
+    // this method for get all drivers from database
     public void getAppointments(String status, final OrderListCallback callback) {
         final ArrayList<Order> list = new ArrayList<>();
         reference.child(Common.FIREBASE_DOCTOR_ORDER).addValueEventListener(new ValueEventListener() {

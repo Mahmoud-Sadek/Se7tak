@@ -11,12 +11,14 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.sadek.se7tak.R;
 import com.sadek.se7tak.adapter.BottomBarAdapter;
 import com.sadek.se7tak.adapter.NoSwipePager;
+import com.sadek.se7tak.firebase.FireDatabase;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,12 +47,16 @@ public class MainFragment extends Fragment {
     };
 
     //inti the views
+    @BindView(R.id.notification_numbers)
+    TextView notification_numbers;
     @BindView(R.id.viewpager)
     NoSwipePager viewPager;
     @BindView(R.id.bottom_navigation)
     AHBottomNavigation bottomNavigation;
 
     private BottomBarAdapter pagerAdapter;
+
+    FireDatabase database;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,6 +78,7 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         unbinder = ButterKnife.bind(this, view);
+        database = new FireDatabase(getContext());
         try {
             setupViewPager(view);
 
@@ -94,6 +101,22 @@ public class MainFragment extends Fragment {
                     return true;
                 }
             });
+
+            database.getNotificationNumber(new FireDatabase.ResultStringCallback() {
+                @Override
+                public void onCallback(String success) {
+                    try{
+                        if (success.equals("0"))
+                            notification_numbers.setVisibility(View.GONE);
+                        else {
+                            notification_numbers.setText(success);
+                            notification_numbers.setVisibility(View.VISIBLE);
+                        }
+                    } catch (Exception e) {
+//            BaseActitvty.restartApp(getActivity(), getActivity());
+                    }
+                }
+            });
         } catch (Exception e) {
 //            BaseActitvty.restartApp(getActivity(), getActivity());
         }
@@ -104,79 +127,76 @@ public class MainFragment extends Fragment {
         super.onResume();
     }
 
-        private void setupViewPager(View view) {
-            viewPager.setPagingEnabled(false);
+    private void setupViewPager(View view) {
+        viewPager.setPagingEnabled(false);
 
-            pagerAdapter = new BottomBarAdapter(getChildFragmentManager());
+        pagerAdapter = new BottomBarAdapter(getChildFragmentManager());
 
-            pagerAdapter.addFragments(createFragment(android.R.color.darker_gray, new SearchFragment()));
-            pagerAdapter.addFragments(createFragment(android.R.color.darker_gray, new AppointmentsStatusFragment()));
-            pagerAdapter.addFragments(createFragment(android.R.color.darker_gray, new FavoriteFragment()));
-            pagerAdapter.addFragments(createFragment(android.R.color.darker_gray, new MyAccountFragment()));
+        pagerAdapter.addFragments(createFragment(android.R.color.darker_gray, new SearchFragment()));
+        pagerAdapter.addFragments(createFragment(android.R.color.darker_gray, new AppointmentsStatusFragment()));
+        pagerAdapter.addFragments(createFragment(android.R.color.darker_gray, new FavoriteFragment()));
+        pagerAdapter.addFragments(createFragment(android.R.color.darker_gray, new MyAccountFragment()));
 
-            viewPager.setAdapter(pagerAdapter);
-        }
+        viewPager.setAdapter(pagerAdapter);
+    }
 
-        @NonNull
-        private Fragment createFragment(int color, Fragment fragment) {
+    @NonNull
+    private Fragment createFragment(int color, Fragment fragment) {
 
-            fragment.setArguments(passFragmentArguments(fetchColor(color)));
-            return fragment;
-        }
+        fragment.setArguments(passFragmentArguments(fetchColor(color)));
+        return fragment;
+    }
 
-        @NonNull
-        private Bundle passFragmentArguments(int color) {
-            Bundle bundle = new Bundle();
-            bundle.putInt("color", color);
-            return bundle;
-        }
-
-
-        public void setupBottomNavBehaviors() {
-
-            bottomNavigation.setTranslucentNavigationEnabled(true);
-        }
+    @NonNull
+    private Bundle passFragmentArguments(int color) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("color", color);
+        return bundle;
+    }
 
 
+    public void setupBottomNavBehaviors() {
+
+        bottomNavigation.setTranslucentNavigationEnabled(true);
+    }
 
 
-        private void setupBottomNavStyle() {
+    private void setupBottomNavStyle() {
 
-            bottomNavigation.setDefaultBackgroundColor(Color.WHITE);
-            bottomNavigation.setAccentColor(fetchColor(R.color.colorAccent));
-            bottomNavigation.setInactiveColor(fetchColor(R.color.colorAccent));
+        bottomNavigation.setDefaultBackgroundColor(Color.WHITE);
+        bottomNavigation.setAccentColor(fetchColor(R.color.colorAccent));
+        bottomNavigation.setInactiveColor(fetchColor(R.color.colorAccent));
 
-            // Colors for selected (active) and non-selected items.
-            bottomNavigation.setColoredModeColors(fetchColor(android.R.color.white),
-                    fetchColor(android.R.color.darker_gray));
+        // Colors for selected (active) and non-selected items.
+        bottomNavigation.setColoredModeColors(fetchColor(android.R.color.white),
+                fetchColor(android.R.color.darker_gray));
 
-            //  Enables Reveal effect
-            bottomNavigation.setColored(true);
+        //  Enables Reveal effect
+        bottomNavigation.setColored(true);
 
-            //  Displays item Title always (for selected and non-selected items)
-            bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_HIDE);
-            bottomNavigation.setCurrentItem(0);
-        }
-
-
-        private void addBottomNavigationItems() {
-            AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.search, tabIcons[0], R.color.colorPrimary);
-            AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.appintments, tabIcons[1], R.color.colorPrimary);
-            AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.favorites, tabIcons[2], R.color.colorPrimary);
-            AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.more, tabIcons[3], R.color.colorPrimary);
+        //  Displays item Title always (for selected and non-selected items)
+        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_HIDE);
+        bottomNavigation.setCurrentItem(0);
+    }
 
 
-            bottomNavigation.addItem(item1);
-            bottomNavigation.addItem(item2);
-            bottomNavigation.addItem(item3);
-            bottomNavigation.addItem(item4);
-        }
+    private void addBottomNavigationItems() {
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.search, tabIcons[0], R.color.colorPrimary);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.appintments, tabIcons[1], R.color.colorPrimary);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.favorites, tabIcons[2], R.color.colorPrimary);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.more, tabIcons[3], R.color.colorPrimary);
 
 
+        bottomNavigation.addItem(item1);
+        bottomNavigation.addItem(item2);
+        bottomNavigation.addItem(item3);
+        bottomNavigation.addItem(item4);
+    }
 
-        private int fetchColor(@ColorRes int color) {
-            return ContextCompat.getColor(getActivity(), color);
-        }
+
+    private int fetchColor(@ColorRes int color) {
+        return ContextCompat.getColor(getActivity(), color);
+    }
 
     @Override
     public void onDestroyView() {

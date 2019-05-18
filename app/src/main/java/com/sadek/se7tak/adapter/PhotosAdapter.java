@@ -1,7 +1,9 @@
 package com.sadek.se7tak.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +55,19 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
         if (mContext != null)
 //            Common.BASE_IMAGE_URL+
             Picasso.with(mContext).load(contents.get(position)).into(holder.image);
+        holder.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(((Activity)mContext));
+                LayoutInflater inflater = ((Activity)mContext).getLayoutInflater();
+                View viewImg = inflater.inflate(R.layout.image_dilog, null);
+                builder.setView(viewImg);
+                ImageView imgView = (ImageView)viewImg.findViewById(R.id.imageView);
+                Picasso.with(mContext).load(contents.get(position)).into(imgView);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
 
     }

@@ -18,11 +18,31 @@
             android:layout_gravity="top"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+        <TextView
+            android:id="@+id/notification_numbers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@android:color/white"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_gravity="center|bottom"
+            android:layout_marginStart="-20dp"
+            android:background="@drawable/circle_number"/>
     </FrameLayout>
-    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
-        android:id="@+id/bottom_navigation"
+
+    <FrameLayout
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layoutDirection="ltr"/>
+        android:layout_height="wrap_content">
+
+        <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layoutDirection="ltr" />
+
+    </FrameLayout>
 </LinearLayout>
